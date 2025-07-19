@@ -90,15 +90,69 @@
   }
 }
 
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  /* Theme-aware utilities */
+  .bg-theme-primary {
+    background-color: hsl(var(--bg-primary));
+  }
+
+  .bg-theme-secondary {
+    background-color: hsl(var(--bg-secondary));
+  }
+
+  .text-theme-primary {
+    color: hsl(var(--text-primary));
+  }
+
+  .text-theme-secondary {
+    color: hsl(var(--text-secondary));
+  }
+
+  .border-theme {
+    border-color: hsl(var(--border-color));
+  }
+
+  .bg-theme-card {
+    background-color: hsl(var(--card-bg));
+  }
+
+  .bg-theme-glass {
+    background-color: hsl(var(--glass-bg));
+  }
+}
+
 @layer components {
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24;
   }
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 text-center relative;
-  }
-  .section-title::after {
-    content: "";
-    @apply block h-1 w-20 bg-primary mx-auto mt-4;
+    @apply text-3xl md:text-4xl font-bold mb-8 text-center relative bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent;
   }
 }
