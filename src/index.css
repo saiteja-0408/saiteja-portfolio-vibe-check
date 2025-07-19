@@ -35,70 +35,136 @@
 
   /* Theme-aware utilities */
   .bg-theme-primary {
-    background-color: var(--bg-primary);
+    background-color: hsl(var(--bg-primary));
   }
   
   .bg-theme-secondary {
-    background-color: var(--bg-secondary);
+    background-color: hsl(var(--bg-secondary));
   }
   
   .text-theme-primary {
-    color: var(--text-primary);
+    color: hsl(var(--text-primary));
   }
   
   .text-theme-secondary {
-    color: var(--text-secondary);
+    color: hsl(var(--text-secondary));
   }
   
   .border-theme {
-    border-color: var(--border-color);
+    border-color: hsl(var(--border-color));
   }
   
   .bg-theme-card {
-    background-color: var(--card-bg);
+    background-color: hsl(var(--card-bg));
   }
   
   .bg-theme-glass {
-    background-color: var(--glass-bg);
+    background-color: hsl(var(--glass-bg));
   }
 }
 
 @layer base {
   :root {
-    /* Default theme variables */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --accent-primary: #3b82f6;
-    --accent-secondary: #8b5cf6;
-    --border-color: #e2e8f0;
-    --card-bg: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    /* Default theme variables - Light mode */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    
+    /* Custom theme variables */
+    --bg-primary: 0 0% 100%;
+    --bg-secondary: 210 40% 98%;
+    --text-primary: 222.2 84% 4.9%;
+    --text-secondary: 215.4 16.3% 46.9%;
+    --accent-primary: 221.2 83.2% 53.3%;
+    --accent-secondary: 262.1 83.3% 57.8%;
+    --border-color: 214.3 31.8% 91.4%;
+    --card-bg: 0 0% 100%;
+    --glass-bg: 0 0% 100% 0.1;
   }
 
   .dark {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --accent-primary: #60a5fa;
-    --accent-secondary: #a78bfa;
-    --border-color: #334155;
-    --card-bg: #1e293b;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+    --radius: 0.5rem;
+    
+    /* Custom theme variables - Dark mode */
+    --bg-primary: 222.2 84% 4.9%;
+    --bg-secondary: 217.2 32.6% 17.5%;
+    --text-primary: 210 40% 98%;
+    --text-secondary: 215 20.2% 65.1%;
+    --accent-primary: 217.2 91.2% 59.8%;
+    --accent-secondary: 262.1 83.3% 57.8%;
+    --border-color: 217.2 32.6% 17.5%;
+    --card-bg: 222.2 84% 4.9%;
+    --glass-bg: 0 0% 100% 0.05;
   }
 
   .light {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --accent-primary: #3b82f6;
-    --accent-secondary: #8b5cf6;
-    --border-color: #e2e8f0;
-    --card-bg: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    
+    /* Custom theme variables - Light mode */
+    --bg-primary: 0 0% 100%;
+    --bg-secondary: 210 40% 98%;
+    --text-primary: 222.2 84% 4.9%;
+    --text-secondary: 215.4 16.3% 46.9%;
+    --accent-primary: 221.2 83.2% 53.3%;
+    --accent-secondary: 262.1 83.3% 57.8%;
+    --border-color: 214.3 31.8% 91.4%;
+    --card-bg: 0 0% 100%;
+    --glass-bg: 0 0% 100% 0.1;
   }
 
   * {
@@ -147,7 +213,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-center mb-4;
+    @apply text-3xl md:text-4xl font-bold text-center mb-4 text-theme-primary;
   }
 
   /* Enhanced glassmorphism */

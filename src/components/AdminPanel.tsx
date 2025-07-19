@@ -262,7 +262,7 @@ const AdminPanel = () => {
                   <select
                     id="category"
                     value={skillData.category}
-                    onChange={(e) => setSkillData(prev => ({ ...prev, category: e.target.value as any }))}
+                    onChange={(e) => setSkillData(prev => ({ ...prev, category: e.target.value as 'frontend' | 'backend' | 'database' | 'devops' | 'other' }))}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   >
                     <option value="frontend">Frontend</option>

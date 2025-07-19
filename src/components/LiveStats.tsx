@@ -9,7 +9,7 @@ interface Stat {
   label: string;
   value: number;
   suffix?: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   color: string;
   bgColor: string;
   description: string;
@@ -178,7 +178,7 @@ const LiveStats = () => {
   };
 
   return (
-    <section id="live-stats" className="py-16 bg-gradient-to-r from-blue-50 to-purple-50">
+    <section id="live-stats" className="py-16 bg-gradient-to-r from-theme-secondary to-theme-primary">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -188,7 +188,7 @@ const LiveStats = () => {
           className="text-center mb-12"
         >
           <h2 className="section-title">Live Performance Metrics</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                      <p className="text-xl text-theme-secondary max-w-3xl mx-auto">
             Real-time statistics showcasing my impact and achievements across various projects and technologies.
           </p>
         </motion.div>
@@ -201,9 +201,9 @@ const LiveStats = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex justify-center mb-8"
         >
-          <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 border border-gray-200/50">
+          <div className="flex items-center gap-2 bg-theme-card/70 backdrop-blur-sm rounded-full px-6 py-3 border border-theme">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-theme-primary">
               Last updated: {currentTime.toLocaleTimeString()}
             </span>
           </div>
@@ -221,7 +221,7 @@ const LiveStats = () => {
               whileHover={{ scale: 1.02, y: -5 }}
               className="group"
             >
-              <Card className="h-full bg-white/70 backdrop-blur-sm border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+                              <Card className="h-full bg-theme-card/70 backdrop-blur-sm border border-theme hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className={`p-3 rounded-full ${stat.bgColor} group-hover:scale-110 transition-transform`}>
@@ -237,13 +237,13 @@ const LiveStats = () => {
 
                   <div className="space-y-2">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                    <h3 className="text-lg font-semibold text-gray-800">{stat.label}</h3>
-                    <p className="text-sm text-gray-600">{stat.description}</p>
+                                    <h3 className="text-lg font-semibold text-theme-primary">{stat.label}</h3>
+                <p className="text-sm text-theme-secondary">{stat.description}</p>
                   </div>
 
                   {/* Progress Bar */}
                   <div className="mt-4">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <div className="flex justify-between text-xs text-theme-secondary mb-1">
                       <span>Progress</span>
                       <span>{stat.value}{stat.suffix}</span>
                     </div>
@@ -289,11 +289,11 @@ const LiveStats = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="text-center p-4 bg-white/50 backdrop-blur-sm rounded-lg border border-gray-200/50"
+              className="text-center p-4 bg-theme-card/30 backdrop-blur-sm rounded-lg border border-theme"
             >
-              <div className="text-2xl font-bold text-gray-800 mb-1">{summary.value}</div>
-              <div className="text-sm font-medium text-gray-700 mb-1">{summary.label}</div>
-              <div className="text-xs text-gray-500">{summary.description}</div>
+                              <div className="text-2xl font-bold text-theme-primary mb-1">{summary.value}</div>
+                <div className="text-sm font-medium text-theme-primary mb-1">{summary.label}</div>
+                <div className="text-xs text-theme-secondary">{summary.description}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -312,10 +312,26 @@ const LiveStats = () => {
               Let's work together to create innovative solutions and drive measurable impact for your projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              <button 
+                className="px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                onClick={() => {
+                  const projectsSection = document.getElementById('projects');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 View Projects
               </button>
-              <button className="px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+              <button 
+                className="px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                onClick={() => {
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 Get in Touch
               </button>
             </div>

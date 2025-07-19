@@ -97,7 +97,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section id="about" className="py-20 bg-gradient-to-br from-theme-secondary to-theme-primary">
       <div className="section-container">
         <motion.div
           initial="initial"
@@ -107,7 +107,7 @@ const AboutSection = () => {
         >
           <motion.div variants={fadeInUp} className="text-center mb-16">
             <h2 className="section-title">About Me</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-theme-secondary max-w-3xl mx-auto">
               Tech shouldn't slow you down. It should automate, accelerate, and scale. 
               I help companies do just that with 3+ years of experience in software engineering.
             </p>

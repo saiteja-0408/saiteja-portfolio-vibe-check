@@ -1,5 +1,5 @@
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,25 @@ const ProjectsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedComplexity, setSelectedComplexity] = useState("all");
   const [sortBy, setSortBy] = useState("date");
+
+  // Listen for filter events from navigation
+  useEffect(() => {
+    const handleFilterEvent = (event: CustomEvent) => {
+      const { category } = event.detail;
+      if (category) {
+        setSelectedCategory(category);
+        // Clear other filters when filtering by category
+        setSearchTerm("");
+        setSelectedComplexity("all");
+      }
+    };
+
+    window.addEventListener('filterProjects', handleFilterEvent as EventListener);
+    
+    return () => {
+      window.removeEventListener('filterProjects', handleFilterEvent as EventListener);
+    };
+  }, []);
 
   const projects: Project[] = [
     {
@@ -146,20 +165,24 @@ const ProjectsSection = () => {
     // Sort projects
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case "date":
+        case "date": {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
-        case "complexity":
+        }
+        case "complexity": {
           const complexityOrder = { "Beginner": 1, "Intermediate": 2, "Advanced": 3 };
           return complexityOrder[b.complexity] - complexityOrder[a.complexity];
-        case "name":
+        }
+        case "name": {
           return a.title.localeCompare(b.title);
-        default:
+        }
+        default: {
           return 0;
+        }
       }
     });
 
     return filtered;
-  }, [searchTerm, selectedCategory, selectedComplexity, sortBy]);
+  }, [searchTerm, selectedCategory, selectedComplexity, sortBy, projects]);
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
@@ -182,7 +205,7 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section className="py-20 bg-gradient-to-br from-theme-secondary to-theme-primary">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -192,7 +215,7 @@ const ProjectsSection = () => {
           className="text-center mb-12"
         >
           <h2 className="section-title">Featured Projects</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-theme-secondary max-w-3xl mx-auto">
             Showcasing my technical expertise through real-world projects that demonstrate 
             problem-solving, innovation, and impact across various domains.
           </p>
@@ -209,7 +232,7 @@ const ProjectsSection = () => {
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-theme-secondary h-4 w-4" />
               <Input
                 placeholder="Search projects, technologies..."
                 value={searchTerm}
@@ -267,8 +290,9 @@ const ProjectsSection = () => {
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
-              className="flex flex-wrap gap-2"
+              className="flex flex-wrap gap-2 items-center"
             >
+              <span className="text-sm text-theme-secondary mr-2">Active Filters:</span>
               {searchTerm && (
                 <Badge variant="secondary" className="bg-blue-100 text-blue-800">
                   Search: {searchTerm}
@@ -285,16 +309,16 @@ const ProjectsSection = () => {
                 </Badge>
               )}
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => {
                   setSearchTerm("");
                   setSelectedCategory("all");
                   setSelectedComplexity("all");
                 }}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-theme-secondary hover:text-theme-primary border-theme"
               >
-                Clear All
+                Clear All Filters
               </Button>
             </motion.div>
           )}
@@ -307,6 +331,27 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
+          {/* Show All Projects Button when filters are active */}
+          {(searchTerm || selectedCategory !== "all" || selectedComplexity !== "all") && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-6"
+            >
+              <Button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSelectedCategory("all");
+                  setSelectedComplexity("all");
+                }}
+                variant="default"
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                Show All Projects ({projects.length})
+              </Button>
+            </motion.div>
+          )}
+
           <AnimatePresence mode="wait">
             {filteredProjects.length === 0 ? (
               <motion.div
@@ -315,7 +360,7 @@ const ProjectsSection = () => {
                 exit={{ opacity: 0 }}
                 className="text-center py-12"
               >
-                <div className="text-gray-500 text-lg mb-4">No projects found matching your criteria</div>
+                <div className="text-theme-secondary text-lg mb-4">No projects found matching your criteria</div>
                 <Button
                   onClick={() => {
                     setSearchTerm("");
@@ -339,7 +384,7 @@ const ProjectsSection = () => {
                     whileHover={{ y: -5, scale: 1.02 }}
                     className="group"
                   >
-                    <Card className="h-full bg-white/50 backdrop-blur-sm border border-gray-200/50 overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <Card className="h-full bg-theme-card/50 backdrop-blur-sm border border-theme overflow-hidden hover:shadow-xl transition-all duration-300">
                       <CardHeader className="pb-3">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex items-center space-x-2">
@@ -354,10 +399,10 @@ const ProjectsSection = () => {
                             </Badge>
                           )}
                         </div>
-                        <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                        <CardTitle className="text-lg font-bold text-theme-primary group-hover:text-accent-primary transition-colors">
                           {project.title}
                         </CardTitle>
-                        <div className="flex items-center justify-between text-sm text-gray-500">
+                        <div className="flex items-center justify-between text-sm text-theme-secondary">
                           <span>{project.date}</span>
                           <Badge className={getComplexityColor(project.complexity)}>
                             {project.complexity}
@@ -366,15 +411,15 @@ const ProjectsSection = () => {
                       </CardHeader>
                       
                       <CardContent className="pt-0">
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                        <p className="text-theme-secondary text-sm mb-4 line-clamp-3">
                           {project.description}
                         </p>
                         
                         <div className="space-y-3 mb-4">
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-theme-secondary">
                             <strong>Impact:</strong> {project.impact}
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-theme-secondary">
                             <strong>Role:</strong> {project.role}
                           </div>
                         </div>
@@ -438,11 +483,11 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="text-center p-4 bg-white/30 backdrop-blur-sm rounded-lg border border-gray-200/50"
+              className="text-center p-4 bg-theme-card/30 backdrop-blur-sm rounded-lg border border-theme"
             >
               <div className="text-2xl mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold text-gray-800">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+              <div className="text-2xl font-bold text-theme-primary">{stat.value}</div>
+              <div className="text-sm text-theme-secondary">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

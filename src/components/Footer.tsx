@@ -82,11 +82,11 @@ const Footer = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold">Saiteja Singirikonda</h3>
-                    <p className="text-gray-300 text-sm">DevOps Software Engineer</p>
+                    <p className="text-theme-secondary text-sm">DevOps Software Engineer</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-theme-secondary text-sm leading-relaxed">
                   Passionate about building scalable solutions and automating processes. 
                   Always eager to learn new technologies and solve complex problems.
                 </p>

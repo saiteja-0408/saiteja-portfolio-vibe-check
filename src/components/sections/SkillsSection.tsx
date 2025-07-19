@@ -224,7 +224,7 @@ const SkillsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+    <section className="py-20 bg-gradient-to-br from-theme-secondary to-theme-primary">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -234,7 +234,7 @@ const SkillsSection = () => {
           className="text-center mb-12"
         >
           <h2 className="section-title">Technical Skills</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-theme-secondary max-w-3xl mx-auto">
             A comprehensive showcase of my technical expertise across multiple domains, 
             demonstrating both depth and breadth of knowledge.
           </p>
@@ -288,8 +288,8 @@ const SkillsSection = () => {
             {/* Sort Options */}
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-3 py-2 border border-gray-300 rounded-md text-sm"
+              onChange={(e) => setSortBy(e.target.value as "level" | "name" | "years" | "projects")}
+              className="px-3 py-2 border border-theme rounded-md text-sm bg-theme-card text-theme-primary"
             >
               <option value="level">Sort by Level</option>
               <option value="name">Sort by Name</option>
@@ -312,7 +312,7 @@ const SkillsSection = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory("all")}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-theme-secondary hover:text-theme-primary"
               >
                 Clear Filter
               </Button>
@@ -342,14 +342,14 @@ const SkillsSection = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200/50"
+                    className="bg-theme-card/50 backdrop-blur-sm rounded-lg p-6 border border-theme"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <span className="text-2xl">{skill.icon}</span>
                         <div>
-                          <h3 className="font-semibold text-gray-800">{skill.name}</h3>
-                          <p className="text-sm text-gray-600">{skill.description}</p>
+                          <h3 className="font-semibold text-theme-primary">{skill.name}</h3>
+                          <p className="text-sm text-theme-secondary">{skill.description}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
@@ -357,7 +357,7 @@ const SkillsSection = () => {
                           <div className={`text-lg font-bold ${getLevelColor(skill.level)}`}>
                             {skill.level}%
                           </div>
-                          <div className="text-xs text-gray-500">{skill.category}</div>
+                          <div className="text-xs text-theme-secondary">{skill.category}</div>
                         </div>
                         {getTrendingIcon(skill.trending)}
                       </div>
@@ -368,7 +368,7 @@ const SkillsSection = () => {
                         <div className={`h-full rounded-full transition-all duration-1000 ${getProgressColor(skill.level)}`} />
                       </Progress>
                       
-                      <div className="flex justify-between text-xs text-gray-500">
+                      <div className="flex justify-between text-xs text-theme-secondary">
                         <span>{skill.years} years experience</span>
                         <span>{skill.projects} projects</span>
                         <span>Last used: {skill.lastUsed}</span>
@@ -394,7 +394,7 @@ const SkillsSection = () => {
                     whileHover={{ scale: 1.02, y: -5 }}
                     className="group"
                   >
-                    <Card className="h-full bg-white/50 backdrop-blur-sm border border-gray-200/50 hover:shadow-xl transition-all duration-300">
+                    <Card className="h-full bg-theme-card/50 backdrop-blur-sm border border-theme hover:shadow-xl transition-all duration-300">
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between mb-2">
                           <Badge variant="outline" className="text-xs">
@@ -409,11 +409,11 @@ const SkillsSection = () => {
                       </CardHeader>
                       
                       <CardContent className="pt-0">
-                        <p className="text-gray-600 text-sm mb-4">{skill.description}</p>
+                        <p className="text-theme-secondary text-sm mb-4">{skill.description}</p>
                         
                         <div className="space-y-3 mb-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-600">Proficiency</span>
+                            <span className="text-sm text-theme-secondary">Proficiency</span>
                             <span className={`font-bold ${getLevelColor(skill.level)}`}>
                               {skill.level}%
                             </span>
@@ -423,7 +423,7 @@ const SkillsSection = () => {
                           </Progress>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 text-xs text-gray-500 mb-4">
+                        <div className="grid grid-cols-2 gap-4 text-xs text-theme-secondary mb-4">
                           <div className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
                             <span>{skill.years} years</span>
@@ -436,7 +436,7 @@ const SkillsSection = () => {
 
                         {skill.certifications.length > 0 && (
                           <div className="mb-4">
-                            <div className="text-xs font-medium text-gray-700 mb-2">Certifications:</div>
+                            <div className="text-xs font-medium text-theme-primary mb-2">Certifications:</div>
                             <div className="flex flex-wrap gap-1">
                               {skill.certifications.map((cert) => (
                                 <Badge key={cert} variant="secondary" className="text-xs">
@@ -447,7 +447,7 @@ const SkillsSection = () => {
                           </div>
                         )}
 
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs text-theme-secondary">
                           Last used: {skill.lastUsed}
                         </div>
                       </CardContent>
@@ -478,11 +478,11 @@ const SkillsSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="text-center p-4 bg-white/30 backdrop-blur-sm rounded-lg border border-gray-200/50"
+              className="text-center p-4 bg-theme-card/30 backdrop-blur-sm rounded-lg border border-theme"
             >
               <div className="text-2xl mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold text-gray-800">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+              <div className="text-2xl font-bold text-theme-primary">{stat.value}</div>
+              <div className="text-sm text-theme-secondary">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
