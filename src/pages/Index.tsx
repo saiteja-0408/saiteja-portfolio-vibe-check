@@ -8,6 +8,7 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import AdminPanel from "@/components/AdminPanel";
 
+
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -15,6 +16,7 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSection />
         <AboutSection />
+
         <ProjectsSection />
         <SkillsSection />
         <ContactSection />
