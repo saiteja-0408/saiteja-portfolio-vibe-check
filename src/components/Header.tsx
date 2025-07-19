@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ExternalLink, Download } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 // Get current theme from localStorage
@@ -17,29 +17,12 @@ const getCurrentTheme = () => {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [currentTheme, setCurrentTheme] = useState(getCurrentTheme());
 
   const navigation = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { 
-      name: "Projects", 
-      href: "#projects",
-      dropdown: [
-        { name: "All Projects", href: "#projects" },
-        { name: "GitHub Projects", href: "#projects?category=github" },
-        { name: "Algorithm Engineering", href: "#projects?category=Algorithm Engineering" },
-        { name: "Automation", href: "#projects?category=Automation" },
-        { name: "Enterprise Solutions", href: "#projects?category=Enterprise Solutions" },
-        { name: "Educational Software", href: "#projects?category=Educational Software" },
-        { name: "Machine Learning", href: "#projects?category=Machine Learning" },
-        { name: "Full-Stack", href: "#projects?category=Full-Stack" },
-        { name: "DevOps", href: "#projects?category=DevOps" },
-        { name: "Data Engineering", href: "#projects?category=Data Engineering" },
-        { name: "Data Analytics", href: "#projects?category=Data Analytics" }
-      ]
-    },
+    { name: "Projects", href: "#projects" },
     { name: "Skills", href: "#skills" },
     { name: "Contact", href: "#contact" }
   ];
@@ -75,41 +58,11 @@ const Header = () => {
   }, []);
 
   const handleNavClick = (href: string) => {
-    // Handle query parameters for filtering
-    if (href.includes('?')) {
-      const [section, query] = href.split('?');
-      const element = document.querySelector(section);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        // Trigger filter if needed
-        setTimeout(() => {
-          const urlParams = new URLSearchParams(query);
-          const category = urlParams.get('category');
-          if (category) {
-            // Dispatch custom event for filtering
-            window.dispatchEvent(new CustomEvent('filterProjects', { 
-              detail: { category } 
-            }));
-          }
-        }, 500);
-      }
-    } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        // If it's the projects section without query params, reset filters
-        if (href === '#projects') {
-          setTimeout(() => {
-            // Dispatch custom event to reset filters
-            window.dispatchEvent(new CustomEvent('filterProjects', { 
-              detail: { category: 'all' } 
-            }));
-          }, 500);
-        }
-      }
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
-    setActiveDropdown(null);
   };
 
   const scrollToTop = () => {
@@ -157,7 +110,7 @@ const Header = () => {
               <span className="text-white font-bold text-sm">S</span>
             </div>
             <div className="hidden sm:block">
-              <span className="text-lg font-bold text-theme-primary">Saiteja</span>
+              <span className="text-lg font-bold text-theme-primary">Saiteja Singirikonda</span>
                           <Badge variant="secondary" className="ml-2 text-xs">
               Available
             </Badge>
@@ -168,57 +121,14 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8" role="navigation" aria-label="Main navigation">
             {navigation.map((item) => (
-              <div key={item.name} className="relative">
-                {item.dropdown ? (
-                  <div
-                    onMouseEnter={() => setActiveDropdown(item.name)}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                    className="relative"
-                  >
-                    <button 
-                      className="flex items-center space-x-1 text-theme-secondary hover:text-accent-primary transition-colors"
-                      aria-haspopup="true"
-                      aria-expanded={activeDropdown === item.name}
-                      aria-label={`${item.name} menu`}
-                    >
-                      <span>{item.name}</span>
-                      <ChevronDown className="h-4 w-4" />
-                    </button>
-                    
-                    <AnimatePresence>
-                      {activeDropdown === item.name && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className="absolute top-full left-0 mt-2 w-48 bg-theme-card rounded-lg shadow-lg border border-theme py-2"
-                          role="menu"
-                        >
-                          {item.dropdown.map((dropdownItem) => (
-                            <a
-                              key={dropdownItem.name}
-                              href={dropdownItem.href}
-                              onClick={() => handleNavClick(dropdownItem.href)}
-                              className="block px-4 py-2 text-sm text-theme-secondary hover:bg-theme-secondary hover:text-accent-primary transition-colors"
-                              role="menuitem"
-                            >
-                              {dropdownItem.name}
-                            </a>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item.href)}
-                    className="text-theme-secondary hover:text-accent-primary transition-colors"
-                    aria-label={`Navigate to ${item.name} section`}
-                  >
-                    {item.name}
-                  </button>
-                )}
-              </div>
+              <button
+                key={item.name}
+                onClick={() => handleNavClick(item.href)}
+                className="text-theme-secondary hover:text-accent-primary transition-colors"
+                aria-label={`Navigate to ${item.name} section`}
+              >
+                {item.name}
+              </button>
             ))}
           </nav>
 
@@ -269,56 +179,14 @@ const Header = () => {
             >
               <div className="px-4 py-6 space-y-4">
                 {navigation.map((item) => (
-                  <div key={item.name}>
-                    {item.dropdown ? (
-                      <div>
-                        <button
-                          onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
-                          className="flex items-center justify-between w-full text-left text-theme-secondary hover:text-accent-primary transition-colors py-2"
-                          aria-expanded={activeDropdown === item.name}
-                          aria-label={`${item.name} submenu`}
-                        >
-                          <span>{item.name}</span>
-                          <ChevronDown 
-                            className={`h-4 w-4 transition-transform ${
-                              activeDropdown === item.name ? "rotate-180" : ""
-                            }`} 
-                          />
-                        </button>
-                        <AnimatePresence>
-                          {activeDropdown === item.name && (
-                            <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="pl-4 space-y-2 mt-2"
-                              role="menu"
-                            >
-                              {item.dropdown.map((dropdownItem) => (
-                                <a
-                                  key={dropdownItem.name}
-                                  href={dropdownItem.href}
-                                  onClick={() => handleNavClick(dropdownItem.href)}
-                                  className="block py-2 text-sm text-theme-secondary hover:text-accent-primary transition-colors"
-                                  role="menuitem"
-                                >
-                                  {dropdownItem.name}
-                                </a>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() => handleNavClick(item.href)}
-                        className="block w-full text-left text-theme-secondary hover:text-accent-primary transition-colors py-2"
-                        aria-label={`Navigate to ${item.name} section`}
-                      >
-                        {item.name}
-                      </button>
-                    )}
-                  </div>
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavClick(item.href)}
+                    className="block w-full text-left text-theme-secondary hover:text-accent-primary transition-colors py-2"
+                    aria-label={`Navigate to ${item.name} section`}
+                  >
+                    {item.name}
+                  </button>
                 ))}
                 
                 <div className="pt-4 border-t border-gray-200">

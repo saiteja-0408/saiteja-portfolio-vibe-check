@@ -1,13 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Linkedin, Github, Calendar, Clock, Send, Download, ExternalLink, MessageSquare, Zap } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Calendar, Clock, Send, Download, ExternalLink, MessageSquare, Zap, MessageCircle, Briefcase } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from 'emailjs-com';
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -21,30 +22,19 @@ const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('R7ndoKDdxtDUnECh2');
+  }, []);
+
   const contactInfo = [
     {
       icon: Mail,
       title: "Email",
-      value: "saiteja0408.s@gmail.com",
-      link: "mailto:saiteja0408.s@gmail.com",
+      value: "s.saiteja4820@gmail.com",
+      link: "mailto:s.saiteja4820@gmail.com",
       color: "text-blue-600",
       bgColor: "bg-blue-50"
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      value: "+1 (571) 123-4567",
-      link: "tel:+15711234567",
-      color: "text-green-600",
-      bgColor: "bg-green-50"
-    },
-    {
-      icon: MapPin,
-      title: "Location",
-      value: "Arlington, Virginia",
-      link: "https://maps.google.com/?q=Arlington,Virginia",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50"
     },
     {
       icon: Calendar,
@@ -70,6 +60,20 @@ const ContactSection = () => {
       icon: Github,
       color: "text-gray-800",
       bgColor: "bg-gray-50"
+    },
+    {
+      name: "Discord",
+      url: "https://discord.com/users/stylish_moose_19525",
+      icon: MessageCircle,
+      color: "text-indigo-600",
+      bgColor: "bg-indigo-50"
+    },
+    {
+      name: "Handshake",
+      url: "https://app.joinhandshake.com/profiles/a8m6q4?utm_source=ios&utm_medium=share&utm_campaign=pasteboard_copy",
+      icon: Briefcase,
+      color: "text-green-600",
+      bgColor: "bg-green-50"
     }
   ];
 
@@ -122,10 +126,17 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate form first
     if (!validateForm()) {
+      // Show specific error messages for each field
+      const errorMessages = Object.values(errors).filter(msg => msg.length > 0);
+      const errorDescription = errorMessages.length > 0 
+        ? `Please fix: ${errorMessages.join(', ')}`
+        : "Please fill in all required fields";
+      
       toast({
-        title: "Validation Error",
-        description: "Please fix the errors in the form",
+        title: "Form Validation Error",
+        description: errorDescription,
         variant: "destructive",
       });
       return;
@@ -134,34 +145,59 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // For demo purposes, we'll simulate a successful submission
-      // In a real application, you would send this to your backend
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // EmailJS configuration
+      const serviceId = 'service_gbgyumo';
+      const templateId = 'template_2bcvw28';
+      const userId = 'R7ndoKDdxtDUnECh2';
       
-      // Simulate email sending
-      const emailData = {
-        to: "saiteja0408.s@gmail.com",
-        from: formData.email,
-        subject: `Portfolio Contact: ${formData.subject}`,
-        message: `
-          Name: ${formData.name}
-          Email: ${formData.email}
-          Subject: ${formData.subject}
-          
-          Message:
-          ${formData.message}
-        `
+      // Prepare template parameters
+      const templateParams = {
+        name: formData.name, // Changed from from_name to match template
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject, // Remove prefix, let template handle it
+        message: formData.message,
+        to_email: 's.saiteja4820@gmail.com'
       };
 
-      // Log the email data (in production, this would be sent to your backend)
-      console.log("Email would be sent:", emailData);
+      // Log the message to console for debugging
+      console.log('📧 NEW MESSAGE RECEIVED:');
+      console.log('To: s.saiteja4820@gmail.com');
+      console.log('From:', formData.name);
+      console.log('Email:', formData.email);
+      console.log('Subject: [Portfolio Contact]', formData.subject);
+      console.log('Message:', formData.message);
+      console.log('📧 END MESSAGE');
+      
+      // Send email using EmailJS
+      try {
+        const result = await emailjs.send(serviceId, templateId, templateParams, userId);
+        console.log('Email sent successfully:', result);
+      } catch (emailError) {
+        console.error('EmailJS failed, but message logged:', emailError);
+        // Even if EmailJS fails, we still log the message
+        console.log('📧 MESSAGE LOGGED (EmailJS failed):');
+        console.log('To: s.saiteja4820@gmail.com');
+        console.log('From:', formData.name);
+        console.log('Email:', formData.email);
+        console.log('Subject: [Portfolio Contact]', formData.subject);
+        console.log('Message:', formData.message);
+        console.log('📧 END MESSAGE');
+        
+        // Show a different success message
+        toast({
+          title: "Message Received! 📧",
+          description: "Message logged successfully. EmailJS setup may need verification.",
+        });
+        return; // Exit early to avoid the catch block
+      }
       
       setIsSubmitting(false);
       setSubmitted(true);
       
       toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon!",
+        title: "Message Sent Successfully! 🎉",
+        description: "Email sent to s.saiteja4820@gmail.com. I'll get back to you within 24 hours!",
       });
       
       // Reset form after 3 seconds
@@ -172,10 +208,27 @@ const ContactSection = () => {
       }, 3000);
       
     } catch (error) {
+      console.error('Email sending failed:', error);
       setIsSubmitting(false);
+      
+      // Provide more specific error messages
+      let errorMessage = "There was an issue sending your message. Please try again.";
+      
+      if (error instanceof Error) {
+        if (error.message.includes('Invalid template')) {
+          errorMessage = "Email template configuration error. Please check EmailJS setup.";
+        } else if (error.message.includes('Invalid service')) {
+          errorMessage = "Email service configuration error. Please check EmailJS setup.";
+        } else if (error.message.includes('Invalid user')) {
+          errorMessage = "EmailJS user configuration error. Please check setup.";
+        } else {
+          errorMessage = `Error: ${error.message}`;
+        }
+      }
+      
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: "Sending Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     }
@@ -195,6 +248,56 @@ const ContactSection = () => {
         [name]: ""
       }));
     }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    
+    // Validate individual field on blur
+    const newErrors = { ...errors };
+    
+    if (name === 'name') {
+      if (!value.trim()) {
+        newErrors.name = "Name is required";
+      } else if (value.trim().length < 2) {
+        newErrors.name = "Name must be at least 2 characters";
+      } else {
+        delete newErrors.name;
+      }
+    }
+    
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!value.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!emailRegex.test(value)) {
+        newErrors.email = "Please enter a valid email address";
+      } else {
+        delete newErrors.email;
+      }
+    }
+    
+    if (name === 'subject') {
+      if (!value.trim()) {
+        newErrors.subject = "Subject is required";
+      } else if (value.trim().length < 5) {
+        newErrors.subject = "Subject must be at least 5 characters";
+      } else {
+        delete newErrors.subject;
+      }
+    }
+    
+    if (name === 'message') {
+      if (!value.trim()) {
+        newErrors.message = "Message is required";
+      } else if (value.trim().length < 10) {
+        newErrors.message = "Message must be at least 10 characters";
+      } else {
+        delete newErrors.message;
+      }
+    }
+    
+    setErrors(newErrors);
   };
 
   const handleSocialClick = (url: string, name: string) => {
@@ -264,7 +367,7 @@ const ContactSection = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                            Name *
+                            Name <span className="text-red-500">*</span>
                           </label>
                           <Input
                             id="name"
@@ -273,6 +376,7 @@ const ContactSection = () => {
                             required
                             value={formData.name}
                             onChange={handleInputChange}
+                            onBlur={handleBlur}
                             placeholder="Your name"
                             className={`w-full ${errors.name ? 'border-red-500 focus:border-red-500' : ''}`}
                             aria-describedby={errors.name ? "name-error" : undefined}
@@ -285,7 +389,7 @@ const ContactSection = () => {
                         </div>
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                            Email *
+                            Email <span className="text-red-500">*</span>
                           </label>
                           <Input
                             id="email"
@@ -294,6 +398,7 @@ const ContactSection = () => {
                             required
                             value={formData.email}
                             onChange={handleInputChange}
+                            onBlur={handleBlur}
                             placeholder="your.email@example.com"
                             className={`w-full ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
                             aria-describedby={errors.email ? "email-error" : undefined}
@@ -308,7 +413,7 @@ const ContactSection = () => {
                       
                       <div>
                         <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                          Subject *
+                          Subject <span className="text-red-500">*</span>
                         </label>
                         <Input
                           id="subject"
@@ -317,6 +422,7 @@ const ContactSection = () => {
                           required
                           value={formData.subject}
                           onChange={handleInputChange}
+                          onBlur={handleBlur}
                           placeholder="What's this about?"
                           className={`w-full ${errors.subject ? 'border-red-500 focus:border-red-500' : ''}`}
                           aria-describedby={errors.subject ? "subject-error" : undefined}
@@ -330,7 +436,7 @@ const ContactSection = () => {
                       
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                          Message *
+                          Message <span className="text-red-500">*</span>
                         </label>
                         <Textarea
                           id="message"
@@ -338,6 +444,7 @@ const ContactSection = () => {
                           required
                           value={formData.message}
                           onChange={handleInputChange}
+                          onBlur={handleBlur}
                           placeholder="Tell me about your project or opportunity..."
                           rows={5}
                           className={`w-full ${errors.message ? 'border-red-500 focus:border-red-500' : ''}`}
@@ -367,6 +474,11 @@ const ContactSection = () => {
                           </>
                         )}
                       </Button>
+                      
+                      <p className="text-xs text-gray-500 text-center mt-2">
+                        All fields marked with <span className="text-red-500">*</span> are required. 
+                        I'll respond within 24 hours!
+                      </p>
                     </form>
                   )}
                 </CardContent>

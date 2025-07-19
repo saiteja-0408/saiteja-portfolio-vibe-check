@@ -127,7 +127,7 @@ const HeroSection = () => {
             <h1 className="text-5xl md:text-7xl font-bold text-theme-primary mb-6">
               Hi, I'm{" "}
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Saiteja
+                Saiteja Singirikonda
               </span>
             </h1>
             <div className="text-2xl md:text-3xl text-theme-secondary mb-4">

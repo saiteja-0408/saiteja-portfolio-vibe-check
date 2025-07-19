@@ -67,7 +67,7 @@ const ProjectsSection = () => {
       id: 1,
       title: "Layout Overlap Detector",
       description: "High-performance Qt 6/QML demo showcasing sweep-line overlap detection engine in O(n log n) time. Mimics Siemens Calibre DESIGNrev geometry checks with background threading, dynamic UI, and JSON-driven layouts. Perfect for learning EDA-style geometry algorithms.",
-      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&h=250&fit=crop&crop=center", // grid/geometry
+      image: "/ProjectsPhotos/Layout Overlap Detector.png",
       technologies: ["Qt 6", "QML", "C++", "CMake", "nlohmann-json", "Sweep-Line Algorithm", "Background Threading"],
       category: "Algorithm Engineering",
       github: "https://github.com/saiteja-0408/layout-overlap-detector",
@@ -81,7 +81,7 @@ const ProjectsSection = () => {
       id: 2,
       title: "Automated Extraction & Validation",
       description: "Playwright-based automation framework for web data extraction, sorting, and validation. Features robust error handling, dynamic output naming, command-line customization, and comprehensive data processing pipelines.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop&crop=center", // code/automation
+      image: "/ProjectsPhotos/Automated Extraction & Validation.png",
       technologies: ["Playwright", "JavaScript", "Node.js", "Web Automation", "Data Processing", "Error Handling"],
       category: "Automation",
       github: "https://github.com/saiteja-0408/Automated-Extraction-Sorting-Validation-Using-Playwright",
@@ -95,7 +95,7 @@ const ProjectsSection = () => {
       id: 3,
       title: "Unqork Corporate Vehicle Tracker",
       description: "Enterprise-grade vehicle request tracking system built on Unqork's no-code platform. Streamlines corporate fleet management with approval workflows, real-time tracking, and comprehensive reporting dashboards.",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop&crop=center", // fleet/logistics
+      image: "/ProjectsPhotos/Unqork Corporate Vehicle Tracker.png",
       technologies: ["Unqork", "No-Code Platform", "JavaScript", "API Integration", "Workflow Automation"],
       category: "Enterprise Solutions",
       github: "https://github.com/saiteja-0408/unqork-corporate-vehicle-request-tracker",
@@ -109,7 +109,7 @@ const ProjectsSection = () => {
       id: 4,
       title: "CISC Simulator",
       description: "Educational computer architecture simulator implementing CISC instruction set. Features interactive assembly programming, memory management, and real-time instruction execution visualization for learning computer organization concepts.",
-      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop&crop=center", // circuit/code
+      image: "/ProjectsPhotos/CISC Simulator.png",
       technologies: ["C++", "Computer Architecture", "Assembly", "Memory Management", "Educational Software"],
       category: "Educational Software",
       github: "https://github.com/saiteja-0408/CISC-Simulator",
@@ -123,7 +123,7 @@ const ProjectsSection = () => {
       id: 5,
       title: "Deep Learning Uber Fare Prediction",
       description: "Machine learning model for Uber fare prediction using deep learning techniques. Processes historical ride data, weather conditions, and traffic patterns to predict accurate fare estimates with advanced neural network architectures.",
-      image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&h=250&fit=crop&crop=center", // city/ai
+      image: "/ProjectsPhotos/Deep Learning Uber Fare Prediction.png",
       technologies: ["Python", "TensorFlow", "Deep Learning", "Neural Networks", "Data Science", "Pandas", "NumPy"],
       category: "Machine Learning",
       github: "https://github.com/saiteja-0408/Deep-Learning-for-Uber-Fare-Prediction",
@@ -137,10 +137,9 @@ const ProjectsSection = () => {
       id: 6,
       title: "Health & Wellness Platform",
       description: "Comprehensive cloud-based platform for health risk assessments and wellness tracking. Built with React frontend, Django backend, and ML models for personalized health insights.",
-      image: "https://images.unsplash.com/photo-1519494080410-f9aa8f52f1e1?w=400&h=250&fit=crop&crop=center", // health dashboard
+      image: "/ProjectsPhotos/Health & Wellness Platform.png",
       technologies: ["React", "Django", "Python", "AWS", "ML", "Docker", "PostgreSQL"],
       category: "Full-Stack",
-      live: "https://health-platform.demo.com",
       date: "2025",
       featured: false,
       complexity: "Advanced",
@@ -151,7 +150,7 @@ const ProjectsSection = () => {
       id: 7,
       title: "Automated Testing Framework",
       description: "Custom Selenium-based testing framework that reduced testing time by 70%. Implemented parallel execution, CI/CD integration, and comprehensive reporting.",
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop&crop=center", // code/testing
+      image: "/ProjectsPhotos/Automated Testing Framework.png",
       technologies: ["Selenium", "Java", "Jenkins", "Maven", "TestNG", "Docker"],
       category: "DevOps",
       date: "2022",
@@ -164,7 +163,7 @@ const ProjectsSection = () => {
       id: 8,
       title: "Data Migration Pipeline",
       description: "ETL pipeline for migrating 150K+ records from Salesforce to SAP B1 with 98% accuracy. Built data validation, error handling, and rollback mechanisms.",
-      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&h=250&fit=crop&crop=center", // data transfer
+      image: "/ProjectsPhotos/Data Migration Pipeline.png",
       technologies: ["Python", "Salesforce", "SAP B1", "XML", "XSLT", "ETL"],
       category: "Data Engineering",
       date: "2021",
@@ -177,7 +176,7 @@ const ProjectsSection = () => {
       id: 9,
       title: "GW Athletics Dashboard",
       description: "Interactive dashboard for coaching analysis using Python, SQL, and Tableau. Provides real-time statistics and performance metrics for athletic teams.",
-      image: "https://images.unsplash.com/photo-1505843273132-b4b2b4a1d1a2?w=400&h=250&fit=crop&crop=center", // sports analytics
+      image: "/ProjectsPhotos/GW Athletics Dashboard.png",
       technologies: ["Python", "SQL", "Tableau", "NumPy", "Seaborn", "PowerBI"],
       category: "Data Analytics",
       date: "2024",
@@ -190,7 +189,7 @@ const ProjectsSection = () => {
       id: 10,
       title: "CI/CD Pipeline Automation",
       description: "Automated deployment pipeline using AWS, Docker, and Terraform. Reduced deployment time by 80% and improved reliability with infrastructure as code.",
-      image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?w=400&h=250&fit=crop&crop=center", // devops
+      image: "/ProjectsPhotos/CI:CD Pipeline Automation.png",
       technologies: ["AWS", "Docker", "Terraform", "Jenkins", "Git", "Kubernetes"],
       category: "DevOps",
       date: "2025",
@@ -203,7 +202,7 @@ const ProjectsSection = () => {
       id: 11,
       title: "ML Health Risk Assessment",
       description: "Machine learning model for health risk assessment using Python and TensorFlow. Processes patient data to predict health risks with 85% accuracy.",
-      image: "https://images.unsplash.com/photo-1519494080410-f9aa8f52f1e1?w=400&h=250&fit=crop&crop=center", // medical ai
+      image: "/ProjectsPhotos/ML Health Risk Assessment.png",
       technologies: ["Python", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "ML"],
       category: "Machine Learning",
       date: "2025",
@@ -502,11 +501,24 @@ const ProjectsSection = () => {
                         : "bg-theme-card/50 border-theme"
                     }`}>
                       {/* Project Image */}
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-b border-gray-200">
                         <img 
                           src={project.image} 
                           alt={project.title}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                          className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+                          style={{ maxHeight: '100%', maxWidth: '100%' }}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            target.parentElement!.innerHTML = `
+                              <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
+                                <div class="text-center text-gray-500">
+                                  <div class="text-4xl mb-2">📱</div>
+                                  <div class="text-sm">Project Preview</div>
+                                </div>
+                              </div>
+                            `;
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute top-3 right-3 flex gap-2">
