@@ -507,7 +507,9 @@ const ProjectsSection = () => {
                           alt={project.title}
                           className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
                           style={{ maxHeight: '100%', maxWidth: '100%' }}
+                          onLoad={() => console.log(`✅ Image loaded: ${project.image}`)}
                           onError={(e) => {
+                            console.error(`❌ Image failed to load: ${project.image}`);
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
                             target.parentElement!.innerHTML = `
@@ -515,6 +517,7 @@ const ProjectsSection = () => {
                                 <div class="text-center text-gray-500">
                                   <div class="text-4xl mb-2">📱</div>
                                   <div class="text-sm">Project Preview</div>
+                                  <div class="text-xs mt-1">${project.title}</div>
                                 </div>
                               </div>
                             `;
