@@ -9,9 +9,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">Saiteja Singirikonda</h3>
+            <h3 className="text-lg font-bold mb-4">Portfolio</h3>
             <p className="text-gray-600 mb-4">
-              ServiceNow Developer with 5.6 years of experience in automation, machine learning, and enterprise solutions.
+              A showcase of my projects and skills in web development.
             </p>
           </div>
 
@@ -28,8 +28,8 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Contact</h3>
             <ul className="space-y-2">
-              <li className="text-gray-600">Email: saiteja.singirikonda@example.com</li>
-              <li className="text-gray-600">Location: Hyderabad, Telangana, India</li>
+              <li className="text-gray-600">Email: example@domain.com</li>
+              <li className="text-gray-600">Location: City, Country</li>
             </ul>
             <div className="flex space-x-4 mt-4">
               <Button variant="outline" size="icon">
@@ -53,7 +53,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-200 pt-8">
           <p className="text-center text-gray-500 text-sm">
-            &copy; {currentYear} Saiteja Singirikonda. All rights reserved.
+            &copy; {currentYear} Portfolio. All rights reserved.
           </p>
         </div>
       </div>

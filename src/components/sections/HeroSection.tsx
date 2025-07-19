@@ -18,14 +18,14 @@ const HeroSection = () => {
               Welcome to my portfolio
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Hi, I'm <span className="text-primary">Saiteja Singirikonda</span>
+              Hi, I'm <span className="text-primary">Your Name</span>
             </h1>
             <h2 className="text-2xl md:text-3xl font-medium text-gray-700 mb-6">
-              ServiceNow Developer & Full Stack Developer
+              Frontend Developer
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-lg">
-              I have 5.6 years of experience in IT as a ServiceNow Developer with expertise in ITSM and Vulnerability Response modules. 
-              Passionate about automation, web development, and machine learning.
+              I create engaging web experiences with modern technologies.
+              Passionate about building beautiful interfaces and powerful user experiences.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button size="lg">
@@ -41,11 +41,9 @@ const HeroSection = () => {
             <div className="relative w-full aspect-square max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 rounded-full opacity-10 blur-2xl"></div>
               <div className="absolute inset-0 rounded-full overflow-hidden border-8 border-white shadow-xl">
-                <img 
-                  src="/src/assets/profile-photo.jpg" 
-                  alt="Saiteja Singirikonda - ServiceNow Developer"
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-500">Your Photo</span>
+                </div>
               </div>
             </div>
           </div>
