@@ -1,58 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { databaseService, Project, Skill, ContactMessage, AboutInfo } from '@/services/database';
 
-// Types
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image_url?: string;
-  github_url?: string;
-  live_url?: string;
-  technologies: string[];
-  created_at: string;
-  updated_at: string;
-}
-
-export interface Skill {
-  id: string;
-  name: string;
-  category: string;
-  proficiency: number;
-  icon?: string;
-  created_at: string;
-}
-
-export interface AboutInfo {
-  id: string;
-  section: string;
-  title: string;
-  content: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  message: string;
-  created_at: string;
-}
-
-// Projects
+// Projects hooks
 export const useProjects = () => {
   return useQuery({
-    queryKey: ["projects"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*")
-        .order("created_at", { ascending: false });
-      
-      if (error) throw error;
-      return data as Project[];
-    },
+    queryKey: ['projects'],
+    queryFn: databaseService.getProjects,
   });
 };
 
@@ -60,35 +13,19 @@ export const useCreateProject = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (project: Omit<Project, "id" | "created_at" | "updated_at">) => {
-      const { data, error } = await supabase
-        .from("projects")
-        .insert([project])
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
-    },
+    mutationFn: (project: Omit<Project, 'id' | 'created_at'>) => 
+      databaseService.createProject(project),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
     },
   });
 };
 
-// Skills
+// Skills hooks
 export const useSkills = () => {
   return useQuery({
-    queryKey: ["skills"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("skills")
-        .select("*")
-        .order("category", { ascending: true });
-      
-      if (error) throw error;
-      return data as Skill[];
-    },
+    queryKey: ['skills'],
+    queryFn: databaseService.getSkills,
   });
 };
 
@@ -96,50 +33,38 @@ export const useCreateSkill = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (skill: Omit<Skill, "id" | "created_at">) => {
-      const { data, error } = await supabase
-        .from("skills")
-        .insert([skill])
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
-    },
+    mutationFn: (skill: Omit<Skill, 'id'>) => 
+      databaseService.createSkill(skill),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["skills"] });
+      queryClient.invalidateQueries({ queryKey: ['skills'] });
     },
   });
 };
 
-// About Info
-export const useAboutInfo = () => {
-  return useQuery({
-    queryKey: ["about-info"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("about_info")
-        .select("*")
-        .order("created_at", { ascending: true });
-      
-      if (error) throw error;
-      return data as AboutInfo[];
-    },
-  });
-};
-
-// Contact Messages
+// Contact messages hooks
 export const useCreateContactMessage = () => {
   return useMutation({
-    mutationFn: async (message: Omit<ContactMessage, "id" | "created_at">) => {
-      const { data, error } = await supabase
-        .from("contact_messages")
-        .insert([message])
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
-    },
+    mutationFn: (message: Omit<ContactMessage, 'id' | 'created_at'>) => 
+      databaseService.createContactMessage(message),
   });
 };
+
+// About info hooks
+export const useAboutInfo = () => {
+  return useQuery({
+    queryKey: ['about-info'],
+    queryFn: databaseService.getAboutInfo,
+  });
+};
+
+export const useUpdateAboutInfo = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: ({ id, updates }: { id: string; updates: Partial<AboutInfo> }) => 
+      databaseService.updateAboutInfo(id, updates),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['about-info'] });
+    },
+  });
+}; 
