@@ -29,6 +29,7 @@ const ProjectsSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedComplexity, setSelectedComplexity] = useState("all");
   const [sortBy, setSortBy] = useState("date");
+  const [expandedTechnologies, setExpandedTechnologies] = useState<Set<number>>(new Set());
 
   // Listen for filter events from navigation
   useEffect(() => {
@@ -49,58 +50,136 @@ const ProjectsSection = () => {
     };
   }, []);
 
+  const toggleTechnologies = (projectId: number) => {
+    setExpandedTechnologies(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(projectId)) {
+        newSet.delete(projectId);
+      } else {
+        newSet.add(projectId);
+      }
+      return newSet;
+    });
+  };
+
   const projects: Project[] = [
     {
       id: 1,
-      title: "Health & Wellness Platform",
-      description: "Comprehensive cloud-based platform for health risk assessments and wellness tracking. Built with React frontend, Django backend, and ML models for personalized health insights.",
-      image: "/placeholder.svg",
-      technologies: ["React", "Django", "Python", "AWS", "ML", "Docker", "PostgreSQL"],
-      category: "Full-Stack",
-      github: "https://github.com/saiteja-0408/health-platform",
-      live: "https://health-platform.demo.com",
+      title: "Layout Overlap Detector",
+      description: "High-performance Qt 6/QML demo showcasing sweep-line overlap detection engine in O(n log n) time. Mimics Siemens Calibre DESIGNrev geometry checks with background threading, dynamic UI, and JSON-driven layouts. Perfect for learning EDA-style geometry algorithms.",
+      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&h=250&fit=crop&crop=center", // grid/geometry
+      technologies: ["Qt 6", "QML", "C++", "CMake", "nlohmann-json", "Sweep-Line Algorithm", "Background Threading"],
+      category: "Algorithm Engineering",
+      github: "https://github.com/saiteja-0408/layout-overlap-detector",
       date: "2025",
       featured: true,
+      complexity: "Advanced",
+      impact: "O(n log n) performance vs O(n²) naive approach",
+      role: "Lead Developer"
+    },
+    {
+      id: 2,
+      title: "Automated Extraction & Validation",
+      description: "Playwright-based automation framework for web data extraction, sorting, and validation. Features robust error handling, dynamic output naming, command-line customization, and comprehensive data processing pipelines.",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop&crop=center", // code/automation
+      technologies: ["Playwright", "JavaScript", "Node.js", "Web Automation", "Data Processing", "Error Handling"],
+      category: "Automation",
+      github: "https://github.com/saiteja-0408/Automated-Extraction-Sorting-Validation-Using-Playwright",
+      date: "2025",
+      featured: true,
+      complexity: "Advanced",
+      impact: "Automated data extraction with 95% accuracy",
+      role: "Automation Engineer"
+    },
+    {
+      id: 3,
+      title: "Unqork Corporate Vehicle Tracker",
+      description: "Enterprise-grade vehicle request tracking system built on Unqork's no-code platform. Streamlines corporate fleet management with approval workflows, real-time tracking, and comprehensive reporting dashboards.",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=400&h=250&fit=crop&crop=center", // fleet/logistics
+      technologies: ["Unqork", "No-Code Platform", "JavaScript", "API Integration", "Workflow Automation"],
+      category: "Enterprise Solutions",
+      github: "https://github.com/saiteja-0408/unqork-corporate-vehicle-request-tracker",
+      date: "2024",
+      featured: true,
+      complexity: "Intermediate",
+      impact: "Streamlined vehicle request process by 70%",
+      role: "Platform Developer"
+    },
+    {
+      id: 4,
+      title: "CISC Simulator",
+      description: "Educational computer architecture simulator implementing CISC instruction set. Features interactive assembly programming, memory management, and real-time instruction execution visualization for learning computer organization concepts.",
+      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=250&fit=crop&crop=center", // circuit/code
+      technologies: ["C++", "Computer Architecture", "Assembly", "Memory Management", "Educational Software"],
+      category: "Educational Software",
+      github: "https://github.com/saiteja-0408/CISC-Simulator",
+      date: "2024",
+      featured: true,
+      complexity: "Intermediate",
+      impact: "Enhanced computer architecture learning experience",
+      role: "Educational Software Developer"
+    },
+    {
+      id: 5,
+      title: "Deep Learning Uber Fare Prediction",
+      description: "Machine learning model for Uber fare prediction using deep learning techniques. Processes historical ride data, weather conditions, and traffic patterns to predict accurate fare estimates with advanced neural network architectures.",
+      image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?w=400&h=250&fit=crop&crop=center", // city/ai
+      technologies: ["Python", "TensorFlow", "Deep Learning", "Neural Networks", "Data Science", "Pandas", "NumPy"],
+      category: "Machine Learning",
+      github: "https://github.com/saiteja-0408/Deep-Learning-for-Uber-Fare-Prediction",
+      date: "2024",
+      featured: true,
+      complexity: "Advanced",
+      impact: "Improved fare prediction accuracy by 15%",
+      role: "ML Engineer"
+    },
+    {
+      id: 6,
+      title: "Health & Wellness Platform",
+      description: "Comprehensive cloud-based platform for health risk assessments and wellness tracking. Built with React frontend, Django backend, and ML models for personalized health insights.",
+      image: "https://images.unsplash.com/photo-1519494080410-f9aa8f52f1e1?w=400&h=250&fit=crop&crop=center", // health dashboard
+      technologies: ["React", "Django", "Python", "AWS", "ML", "Docker", "PostgreSQL"],
+      category: "Full-Stack",
+      live: "https://health-platform.demo.com",
+      date: "2025",
+      featured: false,
       complexity: "Advanced",
       impact: "Reduced health assessment time by 60%",
       role: "Lead Developer"
     },
     {
-      id: 2,
+      id: 7,
       title: "Automated Testing Framework",
       description: "Custom Selenium-based testing framework that reduced testing time by 70%. Implemented parallel execution, CI/CD integration, and comprehensive reporting.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=250&fit=crop&crop=center", // code/testing
       technologies: ["Selenium", "Java", "Jenkins", "Maven", "TestNG", "Docker"],
       category: "DevOps",
-      github: "https://github.com/saiteja-0408/test-automation",
       date: "2022",
-      featured: true,
+      featured: false,
       complexity: "Advanced",
       impact: "70% reduction in testing time",
       role: "Test Automation Engineer"
     },
     {
-      id: 3,
+      id: 8,
       title: "Data Migration Pipeline",
       description: "ETL pipeline for migrating 150K+ records from Salesforce to SAP B1 with 98% accuracy. Built data validation, error handling, and rollback mechanisms.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=400&h=250&fit=crop&crop=center", // data transfer
       technologies: ["Python", "Salesforce", "SAP B1", "XML", "XSLT", "ETL"],
       category: "Data Engineering",
-      github: "https://github.com/saiteja-0408/data-migration",
       date: "2021",
-      featured: true,
+      featured: false,
       complexity: "Advanced",
       impact: "98% migration accuracy",
       role: "Data Engineer"
     },
     {
-      id: 4,
+      id: 9,
       title: "GW Athletics Dashboard",
       description: "Interactive dashboard for coaching analysis using Python, SQL, and Tableau. Provides real-time statistics and performance metrics for athletic teams.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1505843273132-b4b2b4a1d1a2?w=400&h=250&fit=crop&crop=center", // sports analytics
       technologies: ["Python", "SQL", "Tableau", "NumPy", "Seaborn", "PowerBI"],
       category: "Data Analytics",
-      github: "https://github.com/saiteja-0408/athletics-dashboard",
       date: "2024",
       featured: false,
       complexity: "Intermediate",
@@ -108,13 +187,12 @@ const ProjectsSection = () => {
       role: "Data Analyst"
     },
     {
-      id: 5,
+      id: 10,
       title: "CI/CD Pipeline Automation",
       description: "Automated deployment pipeline using AWS, Docker, and Terraform. Reduced deployment time by 80% and improved reliability with infrastructure as code.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3fd9?w=400&h=250&fit=crop&crop=center", // devops
       technologies: ["AWS", "Docker", "Terraform", "Jenkins", "Git", "Kubernetes"],
       category: "DevOps",
-      github: "https://github.com/saiteja-0408/cicd-pipeline",
       date: "2025",
       featured: false,
       complexity: "Advanced",
@@ -122,13 +200,12 @@ const ProjectsSection = () => {
       role: "DevOps Engineer"
     },
     {
-      id: 6,
+      id: 11,
       title: "ML Health Risk Assessment",
       description: "Machine learning model for health risk assessment using Python and TensorFlow. Processes patient data to predict health risks with 85% accuracy.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1519494080410-f9aa8f52f1e1?w=400&h=250&fit=crop&crop=center", // medical ai
       technologies: ["Python", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "ML"],
       category: "Machine Learning",
-      github: "https://github.com/saiteja-0408/ml-health-assessment",
       date: "2025",
       featured: false,
       complexity: "Advanced",
@@ -137,7 +214,7 @@ const ProjectsSection = () => {
     }
   ];
 
-  const categories = ["all", "Full-Stack", "DevOps", "Data Engineering", "Data Analytics", "Machine Learning"];
+  const categories = ["all", "github", "Algorithm Engineering", "Automation", "Enterprise Solutions", "Educational Software", "Machine Learning", "Full-Stack", "DevOps", "Data Engineering", "Data Analytics"];
   const complexities = ["all", "Beginner", "Intermediate", "Advanced"];
 
   const filteredProjects = useMemo(() => {
@@ -154,7 +231,11 @@ const ProjectsSection = () => {
 
     // Filter by category
     if (selectedCategory !== "all") {
-      filtered = filtered.filter(project => project.category === selectedCategory);
+      if (selectedCategory === "github") {
+        filtered = filtered.filter(project => project.github);
+      } else {
+        filtered = filtered.filter(project => project.category === selectedCategory);
+      }
     }
 
     // Filter by complexity
@@ -195,11 +276,15 @@ const ProjectsSection = () => {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "Full-Stack": return <Code className="h-4 w-4" />;
+      case "Algorithm Engineering": return <Code className="h-4 w-4" />;
+      case "Automation": return <Shield className="h-4 w-4" />;
+      case "Enterprise Solutions": return <Database className="h-4 w-4" />;
+      case "Educational Software": return <Brain className="h-4 w-4" />;
+      case "Machine Learning": return <Zap className="h-4 w-4" />;
+      case "Full-Stack": return <Cloud className="h-4 w-4" />;
       case "DevOps": return <Shield className="h-4 w-4" />;
       case "Data Engineering": return <Database className="h-4 w-4" />;
       case "Data Analytics": return <Zap className="h-4 w-4" />;
-      case "Machine Learning": return <Brain className="h-4 w-4" />;
       default: return <Code className="h-4 w-4" />;
     }
   };
@@ -214,11 +299,35 @@ const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="text-xl text-theme-secondary max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <Code className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="section-title">Featured Projects</h2>
+            <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+              <Github className="h-6 w-6 text-white" />
+            </div>
+          </div>
+          <p className="text-xl text-theme-secondary max-w-4xl mx-auto leading-relaxed">
             Showcasing my technical expertise through real-world projects that demonstrate 
-            problem-solving, innovation, and impact across various domains.
+            problem-solving, innovation, and impact across various domains. 
+            <span className="text-green-500 font-semibold"> GitHub projects featured first</span> with 
+            advanced algorithms, automation frameworks, and enterprise solutions.
           </p>
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <div className="flex items-center gap-2 text-sm text-theme-secondary">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span>GitHub Projects</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-theme-secondary">
+              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+              <span>Featured</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-theme-secondary">
+              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <span>Advanced</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Advanced Filters */}
@@ -251,7 +360,8 @@ const ProjectsSection = () => {
                 <SelectContent>
                   {categories.map((category) => (
                     <SelectItem key={category} value={category}>
-                      {category === "all" ? "All Categories" : category}
+                      {category === "all" ? "All Categories" : 
+                       category === "github" ? "GitHub Projects" : category}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -324,6 +434,8 @@ const ProjectsSection = () => {
           )}
         </motion.div>
 
+
+
         {/* Projects Grid */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -384,29 +496,55 @@ const ProjectsSection = () => {
                     whileHover={{ y: -5, scale: 1.02 }}
                     className="group"
                   >
-                    <Card className="h-full bg-theme-card/50 backdrop-blur-sm border border-theme overflow-hidden hover:shadow-xl transition-all duration-300">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex items-center space-x-2">
-                            {getCategoryIcon(project.category)}
-                            <Badge variant="outline" className="text-xs">
-                              {project.category}
+                    <Card className={`h-full backdrop-blur-sm border overflow-hidden hover:shadow-xl transition-all duration-300 ${
+                      project.github 
+                        ? "bg-gradient-to-br from-theme-card/80 to-theme-card/60 border-gradient-to-r from-green-400/50 to-emerald-400/50" 
+                        : "bg-theme-card/50 border-theme"
+                    }`}>
+                      {/* Project Image */}
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute top-3 right-3 flex gap-2">
+                          {project.github && (
+                            <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs">
+                              <Github className="h-3 w-3 mr-1" />
+                              GitHub
                             </Badge>
-                          </div>
+                          )}
                           {project.featured && (
                             <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs">
                               Featured
                             </Badge>
                           )}
                         </div>
-                        <CardTitle className="text-lg font-bold text-theme-primary group-hover:text-accent-primary transition-colors">
+                        <div className="absolute bottom-3 left-3">
+                          <Badge className="bg-white/20 backdrop-blur-sm text-white text-xs">
+                            {project.complexity}
+                          </Badge>
+                        </div>
+                      </div>
+                      
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center space-x-2 mb-2">
+                          {getCategoryIcon(project.category)}
+                          <Badge variant="outline" className="text-xs">
+                            {project.category}
+                          </Badge>
+                        </div>
+                        <CardTitle className="text-lg font-bold text-theme-primary group-hover:text-accent-primary transition-colors flex items-center gap-2">
                           {project.title}
+                          {project.github && (
+                            <span className="text-xs text-green-500 animate-pulse">⭐</span>
+                          )}
                         </CardTitle>
                         <div className="flex items-center justify-between text-sm text-theme-secondary">
                           <span>{project.date}</span>
-                          <Badge className={getComplexityColor(project.complexity)}>
-                            {project.complexity}
-                          </Badge>
+                          <span className="text-xs text-theme-secondary">{project.role}</span>
                         </div>
                       </CardHeader>
                       
@@ -425,14 +563,37 @@ const ProjectsSection = () => {
                         </div>
 
                         <div className="flex flex-wrap gap-1 mb-4">
-                          {project.technologies.slice(0, 4).map((tech) => (
-                            <Badge key={tech} variant="secondary" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                          {project.technologies.length > 4 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{project.technologies.length - 4} more
+                          {expandedTechnologies.has(project.id) 
+                            ? project.technologies.map((tech) => (
+                                <Badge key={tech} variant="secondary" className="text-xs">
+                                  {tech}
+                                </Badge>
+                              ))
+                            : (
+                              <>
+                                {project.technologies.slice(0, 4).map((tech) => (
+                                  <Badge key={tech} variant="secondary" className="text-xs">
+                                    {tech}
+                                  </Badge>
+                                ))}
+                                {project.technologies.length > 4 && (
+                                  <Badge 
+                                    variant="outline" 
+                                    className="text-xs cursor-pointer hover:bg-theme-secondary hover:text-theme-primary transition-colors"
+                                    onClick={() => toggleTechnologies(project.id)}
+                                  >
+                                    +{project.technologies.length - 4} more
+                                  </Badge>
+                                )}
+                              </>
+                          )}
+                          {expandedTechnologies.has(project.id) && project.technologies.length > 4 && (
+                            <Badge 
+                              variant="outline" 
+                              className="text-xs cursor-pointer hover:bg-theme-secondary hover:text-theme-primary transition-colors"
+                              onClick={() => toggleTechnologies(project.id)}
+                            >
+                              Show less
                             </Badge>
                           )}
                         </div>
@@ -470,10 +631,11 @@ const ProjectsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6"
+          className="mt-12 grid grid-cols-1 md:grid-cols-5 gap-6"
         >
           {[
             { label: "Total Projects", value: projects.length, icon: "📊" },
+            { label: "GitHub Projects", value: 5, icon: "🐙" },
             { label: "Featured Projects", value: projects.filter(p => p.featured).length, icon: "⭐" },
             { label: "Advanced Level", value: projects.filter(p => p.complexity === "Advanced").length, icon: "🚀" },
             { label: "Technologies Used", value: new Set(projects.flatMap(p => p.technologies)).size, icon: "🛠️" }

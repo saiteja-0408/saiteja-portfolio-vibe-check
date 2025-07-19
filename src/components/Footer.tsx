@@ -20,10 +20,11 @@ const Footer = () => {
       { name: "Contact", href: "#contact" }
     ],
     projects: [
-      { name: "Health Platform", href: "#projects" },
-      { name: "Testing Framework", href: "#projects" },
-      { name: "Data Migration", href: "#projects" },
-      { name: "ML Models", href: "#projects" }
+      { name: "Layout Overlap Detector", href: "#projects" },
+      { name: "Automated Extraction & Validation", href: "#projects" },
+      { name: "Unqork Vehicle Tracker", href: "#projects" },
+      { name: "CISC Simulator", href: "#projects" },
+      { name: "Uber Fare Prediction", href: "#projects" }
     ],
     technologies: [
       { name: "Python", href: "#skills" },

@@ -28,11 +28,16 @@ const Header = () => {
       href: "#projects",
       dropdown: [
         { name: "All Projects", href: "#projects" },
+        { name: "GitHub Projects", href: "#projects?category=github" },
+        { name: "Algorithm Engineering", href: "#projects?category=Algorithm Engineering" },
+        { name: "Automation", href: "#projects?category=Automation" },
+        { name: "Enterprise Solutions", href: "#projects?category=Enterprise Solutions" },
+        { name: "Educational Software", href: "#projects?category=Educational Software" },
+        { name: "Machine Learning", href: "#projects?category=Machine Learning" },
         { name: "Full-Stack", href: "#projects?category=Full-Stack" },
         { name: "DevOps", href: "#projects?category=DevOps" },
         { name: "Data Engineering", href: "#projects?category=Data Engineering" },
-        { name: "Data Analytics", href: "#projects?category=Data Analytics" },
-        { name: "Machine Learning", href: "#projects?category=Machine Learning" }
+        { name: "Data Analytics", href: "#projects?category=Data Analytics" }
       ]
     },
     { name: "Skills", href: "#skills" },
