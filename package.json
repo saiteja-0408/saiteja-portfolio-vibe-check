@@ -41,7 +41,7 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "@react-three/drei": "^10.5.1",
     "@react-three/fiber": "^9.2.0",
-    "@supabase/supabase-js": "^2.52.0",
+
     "@tanstack/react-query": "^5.83.0",
     "@types/three": "^0.178.1",
     "class-variance-authority": "^0.7.1",
