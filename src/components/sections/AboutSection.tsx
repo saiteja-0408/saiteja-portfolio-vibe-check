@@ -2,7 +2,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, GraduationCap, Award, Code, Database, Cloud, Zap, Brain, Server, Git, Shield } from "lucide-react";
+import { Calendar, MapPin, GraduationCap, Award, Code, Database, Cloud, Zap, Brain, Server, Shield } from "lucide-react";
 
 const AboutSection = () => {
   const fadeInUp = {

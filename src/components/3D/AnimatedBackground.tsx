@@ -1,7 +1,8 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as random from 'maath/random';
+import * as THREE from 'three';
+import { inSphere } from 'maath/random';
 
 interface ParticleFieldProps {
   count?: number;
@@ -12,7 +13,7 @@ const ParticleField = ({ count = 5000 }: ParticleFieldProps) => {
   
   const positions = useMemo(() => {
     const positions = new Float32Array(count * 3);
-    random.fill(positions);
+    inSphere(positions, { radius: 1.5 });
     return positions;
   }, [count]);
 

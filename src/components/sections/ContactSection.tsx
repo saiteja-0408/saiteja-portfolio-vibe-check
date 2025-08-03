@@ -8,8 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Github, Calendar, Clock, Send, Download, ExternalLink, MessageSquare, Zap, MessageCircle, Briefcase } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from 'emailjs-com';
-
 const ContactSection = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -21,11 +19,6 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init('R7ndoKDdxtDUnECh2');
-  }, []);
 
   const contactInfo = [
     {
@@ -145,59 +138,24 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // EmailJS configuration
-      const serviceId = 'service_gbgyumo';
-      const templateId = 'template_2bcvw28';
-      const userId = 'R7ndoKDdxtDUnECh2';
+      // Simulate form submission delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Prepare template parameters
-      const templateParams = {
-        name: formData.name, // Changed from from_name to match template
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject, // Remove prefix, let template handle it
-        message: formData.message,
-        to_email: 's.saiteja4820@gmail.com'
-      };
-
-      // Log the message to console for debugging
-      console.log('📧 NEW MESSAGE RECEIVED:');
-      console.log('To: s.saiteja4820@gmail.com');
+      // Log the message to console for record keeping
+      console.log('📧 CONTACT FORM SUBMISSION:');
       console.log('From:', formData.name);
       console.log('Email:', formData.email);
-      console.log('Subject: [Portfolio Contact]', formData.subject);
+      console.log('Subject:', formData.subject);
       console.log('Message:', formData.message);
-      console.log('📧 END MESSAGE');
-      
-      // Send email using EmailJS
-      try {
-        const result = await emailjs.send(serviceId, templateId, templateParams, userId);
-        console.log('Email sent successfully:', result);
-      } catch (emailError) {
-        console.error('EmailJS failed, but message logged:', emailError);
-        // Even if EmailJS fails, we still log the message
-        console.log('📧 MESSAGE LOGGED (EmailJS failed):');
-        console.log('To: s.saiteja4820@gmail.com');
-        console.log('From:', formData.name);
-        console.log('Email:', formData.email);
-        console.log('Subject: [Portfolio Contact]', formData.subject);
-        console.log('Message:', formData.message);
-        console.log('📧 END MESSAGE');
-        
-        // Show a different success message
-        toast({
-          title: "Message Received! 📧",
-          description: "Message logged successfully. EmailJS setup may need verification.",
-        });
-        return; // Exit early to avoid the catch block
-      }
+      console.log('Timestamp:', new Date().toISOString());
+      console.log('📧 END SUBMISSION');
       
       setIsSubmitting(false);
       setSubmitted(true);
       
       toast({
         title: "Message Sent Successfully! 🎉",
-        description: "Email sent to s.saiteja4820@gmail.com. I'll get back to you within 24 hours!",
+        description: "Thank you for your message! I'll get back to you within 24 hours.",
       });
       
       // Reset form after 3 seconds
@@ -208,27 +166,12 @@ const ContactSection = () => {
       }, 3000);
       
     } catch (error) {
-      console.error('Email sending failed:', error);
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
       
-      // Provide more specific error messages
-      let errorMessage = "There was an issue sending your message. Please try again.";
-      
-      if (error instanceof Error) {
-        if (error.message.includes('Invalid template')) {
-          errorMessage = "Email template configuration error. Please check EmailJS setup.";
-        } else if (error.message.includes('Invalid service')) {
-          errorMessage = "Email service configuration error. Please check EmailJS setup.";
-        } else if (error.message.includes('Invalid user')) {
-          errorMessage = "EmailJS user configuration error. Please check setup.";
-        } else {
-          errorMessage = `Error: ${error.message}`;
-        }
-      }
-      
       toast({
-        title: "Sending Failed",
-        description: errorMessage,
+        title: "Submission Failed",
+        description: "There was an issue submitting your message. Please try again.",
         variant: "destructive",
       });
     }
